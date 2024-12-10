@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="container">
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <!-- Back Button -->
+        <div class="back-button-container">
+            <a href="/home" class="back-btn">Back</a>
+        </div>
+      <button id="hourly-btn" class="nav-button active">Hourly</button>
+      <button id="daily-btn" class="nav-button">Daily</button>
+    </div>
+
+    <!-- Hourly Weather Section -->
+    <div id="hourly-page" class="weather-page active">
+      <div class="weather-header">
+        <h1>Weather</h1>
+        <h2>Monday</h2>
+      </div>
+      <div class="hourly-section">
+        <h3>Hourly</h3>
+        <div class="weather-grid">
+          <div class="weather-card">
+            <h2>54°</h2>
+            <p>Haze</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/1146/1146869.png" alt="Haze Icon">
+            <p>8:00 AM</p>
+          </div>
+          <div class="weather-card">
+            <h2>56°</h2>
+            <p>Sunny</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Sunny Icon">
+            <p>9:00 AM</p>
+          </div>
+          <div class="weather-card">
+            <h2>56°</h2>
+            <p>Sunny</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Sunny Icon">
+            <p>10:00 AM</p>
+          </div>
+          <div class="weather-card">
+            <h2>66°</h2>
+            <p>Sunny</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Sunny Icon">
+            <p>11:00 AM</p>
+          </div>
+          <div class="weather-card">
+            <h2>54°</h2>
+            <p>Cloudy</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/414/414825.png" alt="Cloudy Icon">
+            <p>12:00 PM</p>
+          </div>
+          <div class="weather-card">
+            <h2>48°</h2>
+            <p>Rainy</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/1146/1146860.png" alt="Rainy Icon">
+            <p>1:00 PM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Weather Section -->
+    <div id="daily-page" class="weather-page">
+      <div class="weather-header">
+        <h1>Weather</h1>
+        <h2>Monday - Saturday</h2>
+      </div>
+      <div class="daily-section">
+        <h3>Daily</h3>
+        <div class="weather-grid">
+          <div class="weather-card">
+            <h2>54°</h2>
+            <p>Haze</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/1146/1146869.png" alt="Haze Icon">
+            <p>Mon</p>
+          </div>
+          <div class="weather-card">
+            <h2>56°</h2>
+            <p>Sunny</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Sunny Icon">
+            <p>Tue</p>
+          </div>
+          <div class="weather-card">
+            <h2>56°</h2>
+            <p>Sunny</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Sunny Icon">
+            <p>Wed</p>
+          </div>
+          <div class="weather-card">
+            <h2>66°</h2>
+            <p>Sunny</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Sunny Icon">
+            <p>Thu</p>
+          </div>
+          <div class="weather-card">
+            <h2>54°</h2>
+            <p>Cloudy</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/414/414825.png" alt="Cloudy Icon">
+            <p>Fri</p>
+          </div>
+          <div class="weather-card">
+            <h2>48°</h2>
+            <p>Rainy</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/1146/1146860.png" alt="Rainy Icon">
+            <p>Sat</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <style>
+
+    /* General Styling */
+    body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #5cb5ff;
+    color: black;
+    height: 100%;
+    }
+
+    #container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    }
+
+    /* Navigation Buttons */
+    .nav-buttons {
+    display: flex;
+    justify-content: center;
+    background-color: #004aad;
+    padding: 10px;
+    }
+
+    .nav-button {
+    background-color: #ffffff;
+    color: #007BFF;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 10px;
+    border-radius: 5px;
+    }
+
+    .nav-button.active {
+    background-color: #3333ff;
+    color: white;
+    }
+
+    /* Weather Page */
+    .weather-page {
+    display: none;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .weather-page.active {
+    display: flex;
+    flex-direction: column;
+    }
+
+    /* Weather Header */
+    .weather-header {
+    text-align: center;
+    }
+
+    .weather-header h1 {
+    font-size: 36px;
+    margin: 0;
+    }
+
+    .weather-header h2 {
+    font-size: 24px;
+    margin: 0;
+    }
+
+    /* Weather Grid (Horizontal Layout) */
+    .weather-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    scroll-behavior: smooth;
+    }
+
+    .weather-grid::-webkit-scrollbar {
+    height: 8px;
+    }
+
+    .weather-grid::-webkit-scrollbar-thumb {
+    background: #007BFF;
+    border-radius: 4px;
+    }
+
+    .weather-grid::-webkit-scrollbar-track {
+    background: #ccc;
+    }
+
+    /* Weather Card */
+    .weather-card {
+    background-color: #94d1ff;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex: 0 0 auto;
+    width: 120px; /* Fixed width for horizontal scrolling */
+    }
+
+    .weather-card h2 {
+    margin: 0;
+    font-size: 24px;
+    }
+
+    .weather-card p {
+    margin: 5px 0;
+    font-size: 16px;
+    }
+
+    .weather-card img {
+    width: 40px;
+    height: 40px;
+    margin: 10px 0;
+    }
+
+    .back-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-right: 10px;
+        background-color: white; /* White background */
+        color: #007bff; /* Blue text */
+        text-decoration: none;
+        border: 2px solid #007bff; /* Blue border */
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .back-btn:hover {
+        background-color: #007bff; /* Blue background on hover */
+        color: white; /* White text on hover */
+    }
+
+
+  </style>
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const hourlyBtn = document.getElementById("hourly-btn");
+    const dailyBtn = document.getElementById("daily-btn");
+    const hourlyPage = document.getElementById("hourly-page");
+    const dailyPage = document.getElementById("daily-page");
+
+    // Switch to Hourly View
+    hourlyBtn.addEventListener("click", () => {
+        hourlyBtn.classList.add("active");
+        dailyBtn.classList.remove("active");
+        hourlyPage.classList.add("active");
+        dailyPage.classList.remove("active");
+    });
+
+    // Switch to Daily View
+    dailyBtn.addEventListener("click", () => {
+        dailyBtn.classList.add("active");
+        hourlyBtn.classList.remove("active");
+        dailyPage.classList.add("active");
+        hourlyPage.classList.remove("active");
+    });
+    });
+
+
+  </script>
+
+
+</body>
+</html>

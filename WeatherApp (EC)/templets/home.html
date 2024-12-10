@@ -1,0 +1,455 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <title>Home Screen</title>
+  <style>
+    body {
+      margin: 0;
+      margin-bottom: 80px;
+      font-family: Arial, sans-serif;
+      background-color: #00bfff;
+      color: #333;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: none; /* Initially hidden */
+    }
+
+    .container.active {
+      display: block; /* Display active container */
+    }
+
+    .header {
+      font-size: 28px;
+      font-weight: bold;
+      text-align: center;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .search-bar-container {
+      position: relative;
+      margin-bottom: 20px;
+      margin-right: 40px;
+    }
+
+    .search-bar {
+      width: 100%;
+      background: white;
+      border-radius: 25px;
+      padding: 12px 20px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #666;
+    }
+
+    .info-section {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      margin-bottom: 30px;
+    }
+
+    .weather-box, .days-box {
+      background: #d4f1f9;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .days-box table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .days-box th, .days-box td {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+    }
+
+    .days-box th {
+      font-weight: bold;
+    }
+
+    .suggestions-container {
+      margin-top: 20px;
+    }
+
+    .suggestion-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #d4d4d4;
+      border-radius: 15px;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .suggestion-item:hover {
+      background: #c4c4c4;
+    }
+
+    .location {
+      font-weight: bold;
+    }
+
+    .temperature {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .condition {
+      font-size: 16px;
+      font-weight: bold;
+      color: black;
+    }
+
+    .back-button {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      cursor: pointer;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .back-button i {
+      margin-right: 8px;
+    }
+
+    /* Footer Navigation Bar */
+    .footer {
+      display: flex;
+      justify-content: space-evenly;
+      background: white;
+      border-radius: 25px;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .footer-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .footer-item img {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 5px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .header {
+        font-size: 24px;
+      }
+
+      .search-bar {
+        font-size: 14px;
+        padding: 10px 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .info-section {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-item {
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        font-size: 18px;
+      }
+
+      .footer {
+        flex-direction: column;
+        padding: 15px 0;
+      }
+
+      .footer-item {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Home Page -->
+  <div class="container home-container active" id="home-container">
+    <!-- <div class="header">Weather App</div> -->
+    <div class="search-bar-container">
+      <input 
+        type="text" 
+        class="search-bar" 
+        placeholder="Location Search" 
+        onclick="openSearchPage('location-search')"
+      >
+      <i class="fas fa-search search-icon"></i>
+    </div>
+    <div class="search-bar-container">
+      <input 
+        type="text" 
+        class="search-bar" 
+        placeholder="Add Location" 
+        onclick="openSearchPage('add-location')"
+      >
+      <i class="fas fa-map-marker-alt search-icon"></i>
+    </div>
+    <div class="info-section">
+      <div class="weather-box" onclick="window.location.href = '/weather';">
+        <h3>Current Weather</h3>
+        <div style="font-size: 36px; font-weight: bold;">42°</div>
+        <div>Monday</div>
+        <div style="margin: 10px 0;">☀️ Sunny</div>
+      </div>
+      <div class="weather-box" onclick="window.location.href = '/aqi';">
+        <h3>Air Quality Index</h3>
+        <div style="background: #d4f1f9; border-radius: 10px; padding: 10px;">
+          <div style="font-size: 24px; font-weight: bold;">Good (46)</div>
+          <div>AQI Status: <span style="font-weight: bold;">Good</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="days-box">
+      <h3>Daily Weather</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Temperature</th>
+            <th>Condition</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monday</td>
+            <td>58°</td>
+            <td>⛅ Cloudy</td>
+          </tr>
+          <tr>
+            <td>Tuesday</td>
+            <td>60°</td>
+            <td>☀️ Sunny</td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td>40°</td>
+            <td>🌧️ Rainy</td>
+          </tr>
+          <tr>
+            <td>Thursday</td>
+            <td>58°</td>
+            <td>⛅ Cloudy</td>
+          </tr>
+          <tr>
+            <td>Friday</td>
+            <td>66°</td>
+            <td>⛅ Cloudy</td>
+          </tr>
+          <tr>
+            <td>Saturday</td>
+            <td>59°</td>
+            <td>⛅ Cloudy</td>
+          </tr>
+          <tr>
+            <td>Sunday</td>
+            <td>74°</td>
+            <td>⛅ Cloudy</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+    <!-- Location Search / Add Location Page -->
+    <div class="container search-container" id="search-container">
+      <div class="back-button" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+      </div>
+      <div class="header" id="search-header">Location Search</div>
+      <div class="search-bar-container">
+        <input 
+          type="text" 
+          class="search-bar" 
+          placeholder="Type preferred location" 
+          oninput="filterSuggestions(this.value)"
+        >
+        <i class="fas fa-search search-icon"></i>
+      </div>
+      <div class="suggestions-container" id="suggestions-container"></div>
+    </div>
+  
+
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-item" onclick="window.location.href = '/weather';">
+      <img src="https://img.icons8.com/clouds/100/000000/partly-cloudy-day.png" alt="Weather">
+      Weather
+    </div>
+    <div class="footer-item" onclick="window.location.href = '/savedlocations';">
+      <img src="https://img.icons8.com/dusk/64/000000/marker.png" alt="Saved Locations">
+      Saved Locations
+    </div>
+    <div class="footer-item" onclick="window.location.href = '/notifications';">
+      <img src="https://img.icons8.com/fluency/48/000000/bell.png" alt="Notifications">
+      Notifications
+    </div>
+    <div class="footer-item" onclick="window.location.href = '/settings';">
+      <img src="https://img.icons8.com/fluency/48/000000/settings.png" alt="Settings">
+      Settings
+    </div>
+  </div>
+
+
+
+
+  <script>
+    // List of suggestions
+    const suggestionsList = [
+      { location: "Edmond/Oklahoma", temperature: "56°", condition: "cloudy" },
+      { location: "Midwest City/Oklahoma", temperature: "56°", condition: "cloudy" },
+      { location: "Oklahoma City/Oklahoma", temperature: "56°", condition: "cloudy" },
+      { location: "Bethany/Oklahoma", temperature: "56°", condition: "cloudy" },
+    ];
+
+    let currentSearchType = "location-search";
+
+    // Open search page
+    function openSearchPage(type) {
+      currentSearchType = type;
+      document.getElementById("home-container").classList.remove("active");
+      document.getElementById("search-container").classList.add("active");
+      document.getElementById("search-header").innerText =
+        type === "location-search" ? "Location Search" : "Add Location";
+      filterSuggestions(""); // Reset suggestions
+    }
+
+    // Go back to home page
+    function goBack() {
+      document.getElementById("search-container").classList.remove("active");
+      document.getElementById("home-container").classList.add("active");
+    }
+
+    // Filter suggestions
+    function filterSuggestions(value) {
+      const container = document.getElementById("suggestions-container");
+      container.innerHTML = ""; // Clear existing suggestions
+
+      const filtered = suggestionsList.filter(item =>
+        item.location.toLowerCase().includes(value.toLowerCase())
+      );
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="suggestion-item">No results found</div>`;
+        return;
+      }
+
+      filtered.forEach(suggestion => {
+        const item = document.createElement("div");
+        item.className = "suggestion-item";
+        item.innerHTML = `
+          <span class="location">${suggestion.location}</span>
+          <span class="temperature">${suggestion.temperature}</span>
+          <span class="condition">${suggestion.condition}</span>
+          ${
+            currentSearchType === "add-location"
+              ? `<button class="btn btn-success" onclick="addLocation('${suggestion.location}')">Add</button>`
+              : ""
+          }
+        `;
+
+        if(currentSearchType === "location-search"){
+        item.onclick = () =>
+          alert(
+            `You selected: ${suggestion.location} from ${currentSearchType}`
+          );}
+        container.appendChild(item);
+      });
+    }
+
+
+    function addLocation(location) {
+      // Send the location to the server using fetch
+      fetch("/add-location/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": getCSRFToken() // Include CSRF token
+        },
+        body: JSON.stringify({ location: location })
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Failed to add location.");
+          }
+        })
+        .then(data => {
+          alert(`Location "${location}" added successfully!`);
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          alert("An error occurred while adding the location.");
+        });
+    }
+
+    // Function to retrieve the CSRF token from cookies
+    function getCSRFToken() {
+      const name = "csrftoken";
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + "=")) {
+          return cookie.substring(name.length + 1);
+        }
+      }
+      return null;
+    }
+
+
+
+  </script>
+
+
+
+</body>
+</html>
+
+
+{% endblock %}

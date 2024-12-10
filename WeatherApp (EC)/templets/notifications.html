@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications</title>
+  <style>
+    /* General Styling */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ff7f7f; /* Light red background */
+      color: black;
+      height: 100%;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: black;
+    }
+
+    .notification-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .notification-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #dcdcdc;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .notification-item p {
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .notification-item .value {
+      background-color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 16px;
+      text-align: center;
+      min-width: 80px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .clear-all-btn {
+      background-color: blue;
+      color: white;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .clear-all-btn:hover {
+      background-color: darkblue;
+    }
+
+    .back-button-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: white;
+      color: black;
+      text-decoration: none;
+      border: 2px solid black;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: black;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-container">
+      <h1>Notifications</h1>
+      <button class="clear-all-btn">Clear All</button>
+    </div>
+
+    <div class="notification-list">
+      <div class="notification-item">
+        <p>Current weather in Edmond/Oklahoma</p>
+        <div class="value">Cloudy</div>
+      </div>
+      <div class="notification-item">
+        <p>Current wind speed in Edmond/Oklahoma</p>
+        <div class="value">6 mph</div>
+      </div>
+      <div class="notification-item">
+        <p>Current AQI in Edmond/Oklahoma</p>
+        <div class="value">26</div>
+      </div>
+      <div class="notification-item">
+        <p>Current pressure in Edmond/Oklahoma</p>
+        <div class="value">29.59 in</div>
+      </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-button-container">
+      <a href="/home" class="back-btn">Back</a>
+    </div>
+  </div>
+</body>
+</html>

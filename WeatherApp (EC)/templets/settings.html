@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <style>
+    /* General Styling */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #a8ff97; /* Light green background */
+      color: black;
+      height: 100%;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      text-align: left;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 30px;
+      color: black;
+      text-align: left;
+    }
+
+    .user-info {
+      margin-bottom: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #e1f7d5;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-info p {
+      margin: 5px 0;
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .setting-item:last-child {
+      border-bottom: none;
+    }
+
+    .setting-item label {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .temp-units {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .temp-units select {
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 40px;
+      height: 20px;
+      display: inline-block;
+    }
+
+    .toggle-switch input {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      border-radius: 15px;
+      transition: 0.3s;
+    }
+
+    .slider:before {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background-color: white;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: 0.3s;
+    }
+
+    input:checked + .slider {
+      background-color: #4caf50;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    .back-button-container {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: white;
+      color: black;
+      text-decoration: none;
+      border: 2px solid black;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: black;
+      color: white;
+    }
+
+    .btn-update-email {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .btn-update-email:hover {
+    background-color: #0056b3;
+  }
+
+  .btn-update-email, .btn-login {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-update-email:hover, .btn-login:hover {
+    background-color: #0056b3;
+  }
+
+  .guest-info {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+  }
+  
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    
+
+
+    {% if user.is_authenticated %}
+    <div class="user-info">
+      <p>Logged in as: <strong>{{ user.username }}</strong></p>
+      <p>Email: <strong>{{ user.email }}</strong></p>
+      
+      <!-- Button to update email -->
+      <button class="btn-update-email" onclick="window.location.href='{% url 'updateemail' %}'">Update Email</button>
+      <div class="guest-info">
+        <a href="{% url 'logout' %}" class="btn-login">Logout</a>
+      </div>
+    </div>
+    {% else %}
+    <div class="guest-info">
+      <p>You are not logged in. Please log in to update your email.</p>
+      <a href="{% url 'login' %}" class="btn-login">Login</a>
+    </div>
+
+    {% endif %}
+
+
+    <h1>Settings</h1>
+
+    <!-- Temperature Units -->
+    <div class="setting-item">
+      <label for="temp-units">Temperature Units</label>
+      <div class="temp-units">
+        <span>°</span>
+        <select id="temp-units">
+          <option value="F">F</option>
+          <option value="C">C</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Auto Refresh -->
+    <div class="setting-item">
+      <label for="auto-refresh">Auto Refresh</label>
+      <div class="toggle-switch">
+        <input type="checkbox" id="auto-refresh">
+        <span class="slider"></span>
+      </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="setting-item">
+      <label for="notifications">Notifications</label>
+      <div class="toggle-switch">
+        <input type="checkbox" id="notifications">
+        <span class="slider"></span>
+      </div>
+    </div>
+
+    <!-- Alerts -->
+    <div class="setting-item">
+      <label for="notifications">Alerts</label>
+      <div class="toggle-switch">
+        <input type="checkbox" id="notifications">
+        <span class="slider"></span>
+      </div>
+    </div>
+    
+    <!-- Prefered Language -->
+    <div class="setting-item">
+      <label for="notifications">Language</label>
+      <div class="toggle-switch">
+        <p>English</p>
+      </div>
+    </div>    
+
+    <!-- About -->
+    <div class="setting-item">
+      <label for="about">About ?</label>
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-button-container">
+      <a href="/home" class="back-btn">Back</a>
+    </div>
+  </div>
+</body>
+</html>

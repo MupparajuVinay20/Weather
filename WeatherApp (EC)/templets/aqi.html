@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Air Quality Index (AQI)</title>
+  <style>
+    /* General Styling */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #a8ff97; /* Light green background */
+      color: black;
+      height: 100%;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 30px;
+      color: black;
+    }
+
+    .aqi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .aqi-card {
+      background-color: #32cd32; /* Bright green */
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .aqi-card p {
+      margin: 5px 0;
+    }
+
+    .back-button-container {
+      margin-top: 30px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: white;
+      color: black;
+      text-decoration: none;
+      border: 2px solid black;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: black;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Air Quality Index (AQI)</h1>
+
+    <!-- AQI Grid -->
+    <div class="aqi-grid">
+      <div class="aqi-card">
+        <p>O3</p>
+        <p>Good (12)</p>
+      </div>
+      <div class="aqi-card">
+        <p>CO</p>
+        <p>Good (5)</p>
+      </div>
+      <div class="aqi-card">
+        <p>NO2</p>
+        <p>Good (6)</p>
+      </div>
+      <div class="aqi-card">
+        <p>PM10</p>
+        <p>Good (14)</p>
+      </div>
+      <div class="aqi-card">
+        <p>PM 2.5</p>
+        <p>Good (46)</p>
+      </div>
+      <div class="aqi-card">
+        <p>SO2</p>
+        <p>Good (1)</p>
+      </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-button-container">
+      <a href="/home" class="back-btn">Back</a>
+    </div>
+  </div>
+</body>
+</html>

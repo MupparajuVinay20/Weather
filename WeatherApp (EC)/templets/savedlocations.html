@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved Weather Locations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Back Button -->
+    <div class="back-button-container">
+        <a href="/home" class="back-btn">Back</a>
+    </div>
+    
+    <h1>Saved Weather Locations</h1>
+    
+    {% if user.is_authenticated %}
+      {% if locations %}
+        <div class="locations-list">
+          {% for location in locations %}
+            <div class="location-card">
+              <h2>{{ location.name }}</h2>
+              <p>Temperature: {{ location.temperature }}</p>
+              <p>Condition: {{ location.condition }}</p>
+              
+              <!-- Delete Button -->
+              <form method="POST" action="{% url 'savedlocations' %}">
+                {% csrf_token %}
+                <input type="hidden" name="location_id" value="{{ location.id }}">
+                <button type="submit" class="delete-btn">Delete</button>
+              </form>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No saved locations available.</p>
+      {% endif %}
+    {% else %}
+    <div class="guest-info">
+      <p>You are not logged in. Please log in to save locations.</p>
+      <a href="{% url 'login' %}" class="btn-login">Login</a>
+    </div>
+    {% endif %}
+
+    
+  </div>
+
+  <style>
+    body, html {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-update-email, .btn-login {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    }
+
+
+    .guest-info {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .locations-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .location-card {
+      padding: 15px;
+      background-color: #e1f7d5;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .location-card h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #4caf50;
+    }
+
+    .location-card p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+
+    .delete-btn {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background-color: darkred;
+    }
+
+    .back-button-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .back-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+
+</body>
+</html>

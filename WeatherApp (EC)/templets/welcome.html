@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Weather App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Basic styling for page */
+        body {
+            background-color: #4caf50; /* Light green background */
+            color: white;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        /* Animation for text */
+        .welcome-text {
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Animated buttons */
+        .button-group .btn {
+            padding: 12px 25px;
+            font-size: 20px;
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 10px;
+            opacity: 0;
+            animation: bounce 1.5s ease-in-out 2s forwards, fadeIn 2s forwards;
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Button bounce effect */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Hover effect for the buttons */
+        .button-group .btn:hover {
+            background-color: #ff5733;
+        }
+
+        /* Small image animations */
+        .weather-icon {
+            opacity: 0;
+            animation: zoomIn 1.5s forwards;
+        }
+
+        /* Zoom-in animation */
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Weather Icon Section -->
+    <img src="../static/images/weather_icon.png" alt="Weather Icon" class="weather-icon" height="150px" width="150px" />
+
+    <!-- Welcome Text -->
+    <h1 class="welcome-text">Welcome to the Weather App!</h1>
+
+    <!-- Button Section -->
+    <div class="button-group">
+        <button class="btn get-started-btn" onclick="window.location.href='home';">Get Started</button>
+        <button class="btn" onclick="window.location.href='login';">Login</button>
+        <button class="btn" onclick="window.location.href='register';">Register</button>
+    </div>
+
+    <script>
+        // Optionally, you can add JavaScript for additional animation control or logic.
+    </script>
+</body>
+
+{% endblock %}
